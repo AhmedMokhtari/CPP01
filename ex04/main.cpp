@@ -1,5 +1,6 @@
-#include <iostream>
-#include <fstream>
+#include <iostream>     // std::streambuf, std::cout
+#include <fstream>   
+#include <sstream>   
 
 std::string read_file(const std::string &file_name)
 {   
@@ -12,13 +13,19 @@ std::string read_file(const std::string &file_name)
         std::cout << "Error in open file \n";
         std::exit(0);
     }
-    while (getline(file, tmp))
-    {
-        content += tmp;
-        content += "\n";
-    }
+    std::stringstream s;
+    std::streambuf *ff = file.rdbuf();
+    s << ff;
+    // s.rdbuf(ff);
+    // while (!file.eof())
+    // {
+    //     if (getline(file, tmp))
+    
+    //     content += tmp;
+    //     content += "\n";
+    // }
     file.close();
-    return content;
+    return s.str();
 }
 
 std::string replace_file(std::string &content, const std::string &s1, const std::string &s2)
@@ -55,7 +62,7 @@ void xx()
 }
 int main(int argc, char **argv)
 {
-    atexit(xx);
+    // atexit(xx);
     if (argc != 4)
     {
         std::cout << "s1 s2 <filename.replace>\n";

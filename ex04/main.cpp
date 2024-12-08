@@ -23,17 +23,20 @@ std::string read_file(const std::string &file_name)
 std::string replace_file(std::string &content, const std::string &s1, const std::string &s2)
 {   
     std::string  replaced;
+    std::string  tmp;
     size_t pos;
     int s1_len = s1.size();
 
     if (!s1.compare(s2))
         return content;
-    while ((pos = content.find(s1)) != std::string::npos)
+    while ((pos = content.find(s1)) != std::string::npos && s1_len)
     {   
         content.erase(pos, s1_len);
         content.insert(pos, s2);
+        replaced += content.substr(0, pos + s2.size());
+        content = content.substr(pos + s2.size());
     }
-    replaced = content;
+    replaced += content;
     return replaced;
 }
 
@@ -55,11 +58,6 @@ int main(int argc, char **argv)
     {
         std::cout << "filename s1 s2\n";
         return (0);
-    }
-    if (argv[2][0] == '\0')
-    {
-        std::cout << "s1 cannot be empty\n";
-        return 0;
     }
     std::string content = read_file(argv[1]);
     std::string replaced = replace_file(content, argv[2], argv[3]);

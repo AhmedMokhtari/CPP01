@@ -1,21 +1,21 @@
-#include <iostream>     // std::streambuf, std::cout
-#include <fstream>   
+#include <iostream>
+#include <fstream>  
 #include <sstream>   
+#include <cstdlib>
 
 std::string read_file(const std::string &file_name)
 {   
     std::string  tmp;
     std::string  content;
-    std::ifstream file(file_name);
+    std::ifstream file(file_name.c_str());
 
     if (!file.is_open())
     {
         std::cout << "Error in open file \n";
-        std::exit(0);
+        exit(0);
     }
     std::stringstream s;
-    std::streambuf *ff = file.rdbuf();
-    s << ff;
+    s << file.rdbuf();
     file.close();
     return s.str();
 }
@@ -37,13 +37,13 @@ std::string replace_file(std::string &content, const std::string &s1, const std:
     return replaced;
 }
 
-void    write_to_file(const std::string &replaced, const std::string &file_name)
+void    write_to_file(const std::string &replaced,  const std::string &file_name)
 {
-    std::ofstream file(file_name);
+    std::ofstream file(file_name.c_str());
     if (!file.is_open())
     {
         std::cout << "Error in open and write to file \n";
-        std::exit(0);
+        exit(0);
     }
     file << replaced;
     file.close();

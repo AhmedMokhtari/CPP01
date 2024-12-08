@@ -16,14 +16,6 @@ std::string read_file(const std::string &file_name)
     std::stringstream s;
     std::streambuf *ff = file.rdbuf();
     s << ff;
-    // s.rdbuf(ff);
-    // while (!file.eof())
-    // {
-    //     if (getline(file, tmp))
-    
-    //     content += tmp;
-    //     content += "\n";
-    // }
     file.close();
     return s.str();
 }
@@ -56,19 +48,14 @@ void    write_to_file(const std::string &replaced, const std::string &file_name)
     file << replaced;
     file.close();
 }
-void xx()
-{
-    system("lsof -c replace");
-}
+
 int main(int argc, char **argv)
 {
-    // atexit(xx);
     if (argc != 4)
     {
-        std::cout << "s1 s2 <filename.replace>\n";
+        std::cout << "filename s1 s2\n";
         return (0);
     }
-    std::cout << "Arg 1 " << argv[1] << std::endl;
     std::string content = read_file(argv[1]);
     std::string replaced = replace_file(content, argv[2], argv[3]);
     write_to_file(replaced, argv[1] + std::string(".replace"));

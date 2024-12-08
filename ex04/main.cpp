@@ -56,6 +56,11 @@ int main(int argc, char **argv)
         std::cout << "filename s1 s2\n";
         return (0);
     }
+    if (argv[2][0] == '\0')
+    {
+        std::cout << "s1 cannot be empty\n";
+        return 0;
+    }
     std::string content = read_file(argv[1]);
     std::string replaced = replace_file(content, argv[2], argv[3]);
     write_to_file(replaced, argv[1] + std::string(".replace"));

@@ -1,4 +1,4 @@
-NAME = "HI THIS IS BRAIN"
+NAME = brain
 
 CPPFLAG = -Wall -Wextra -Werror -std=c++98
 

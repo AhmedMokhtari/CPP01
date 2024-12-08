@@ -1,4 +1,4 @@
-NAME = "Unnecessary violence"
+NAME = "violence"
 
 CPPFLAG = -Wall -Wextra -Werror -std=c++98
 
